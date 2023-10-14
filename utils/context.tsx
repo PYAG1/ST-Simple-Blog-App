@@ -8,7 +8,7 @@ export const useBlogContext = () => {
   return useContext(Blogcontext);
 };
 
-export const BlogProvide: React.FC<BlogProviderProps> = ({ children }) => {
+export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
   const [blogs, setBlogArray] = useState<blogdata[]>([]);
 
   const addblog = (blogs: blogdata) => {

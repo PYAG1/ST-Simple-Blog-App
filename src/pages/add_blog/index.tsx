@@ -6,10 +6,13 @@ import * as Yup from "yup";
 import dynamic from "next/dynamic";
 import { useField } from "formik";
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer ,toast} from 'react-toastify'
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false, // Ensure it's not loaded on the server side
 });
 import "react-quill/dist/quill.snow.css";
+import { useBlogContext } from "../../../utils/context";
 
 
 interface ReactQuillFieldProps {
@@ -30,6 +33,9 @@ const ReactQuillField:React.FC<ReactQuillFieldProps> = ({ label, ...props }) => 
     ],
   };
 
+  console.log(value);
+  
+
   return (
     <div>
       <label htmlFor={props.name} className="text-3xl">
@@ -39,6 +45,7 @@ const ReactQuillField:React.FC<ReactQuillFieldProps> = ({ label, ...props }) => 
         value={value || ''}
         onChange={(content) => helpers.setValue(content)}
         modules={modules}
+        className=" text-lg"
       />
     </div>
   );
@@ -51,6 +58,8 @@ export default function index() {
   const year = newDate.getUTCFullYear();
   const formattedDate = `${day}/${month}/${year}`;
 
+
+
   const validationSchema = Yup.object().shape({
     title: Yup.string()
       .required("Title is required")
@@ -60,6 +69,11 @@ export default function index() {
       .min(1, "Content must not be an empty string"),
   });
 
+const {blogs,addblog }= useBlogContext()
+
+console.log(blogs);
+
+ 
   return (
     <div>
       <header className="flex justify-between items-center p-3">
@@ -67,9 +81,11 @@ export default function index() {
           <FaArrowLeft size={30} />
         </Link>
       </header>
-
+  
+   
       <Formik
         initialValues={{
+          id:`${Math.ceil(Math.random()*10000)}`,
           title: "",
           content: "",
           date: formattedDate,
@@ -79,6 +95,20 @@ export default function index() {
         onSubmit={(values) => {
           // Handle form submission logic here
           console.log(values);
+          toast.success('Blog post has been added', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+
+            addblog(values)
+
+            console.log(blogs)
         }}
       >
         {({ errors, touched }) => (
@@ -108,6 +138,8 @@ export default function index() {
             </div>
 
             <ReactQuillField name="content" label="Content" />
+           
+
 
             <button type="submit">Submit</button>
           </Form>
