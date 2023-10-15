@@ -5,19 +5,21 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import dynamic from "next/dynamic";
 import { useField } from "formik";
-
+import { ReactQuillFieldProps, blogdata } from "../../../types/types";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false, // Ensure it's not loaded on the server side
 });
 import "react-quill/dist/quill.snow.css";
 import { useBlogContext } from "../../../utils/context";
+import { Router, useRouter } from "next/router";
 
-interface ReactQuillFieldProps {
-  label: string;
-  name: string;
-}
+const getId = () => {
+  const router = useRouter();
+  const ID = router.query.index;
+  return ID;
+};
 
 const ReactQuillField: React.FC<ReactQuillFieldProps> = ({
   label,
@@ -34,8 +36,13 @@ const ReactQuillField: React.FC<ReactQuillFieldProps> = ({
       ["clean"],
     ],
   };
+  
+// @ts-ignore
 
-  console.log(value);
+  const { blogs } = useBlogContext();
+  const currentBlog = blogs.filter((item:blogdata) => {
+    return item.id === getId();
+  });
 
   return (
     <div>
@@ -43,7 +50,7 @@ const ReactQuillField: React.FC<ReactQuillFieldProps> = ({
         {label}
       </label>
       <ReactQuill
-        value={value || ""}
+        value={value || currentBlog[0]?.content}
         onChange={(content) => helpers.setValue(content)}
         modules={modules}
         className=" text-lg"
@@ -68,9 +75,15 @@ export default function index() {
       .min(1, "Content must not be an empty string"),
   });
 
-  const { blogs, addblog } = useBlogContext();
+// @ts-ignore
 
-  console.log(blogs);
+  const { blogs, updateBlog } = useBlogContext();
+  const currentBlog = blogs.filter((item:blogdata) => {
+    //function to get the current blog
+    return item.id === getId();
+  });
+
+  const router = useRouter();
 
   return (
     <div>
@@ -82,8 +95,8 @@ export default function index() {
 
       <Formik
         initialValues={{
-          id: `${Math.ceil(Math.random() * 10000)}`,
-          title: "",
+          id: getId(),
+          title: currentBlog[0]?.title,
           content: "",
           date: formattedDate,
           author: "you",
@@ -92,9 +105,11 @@ export default function index() {
         onSubmit={(values) => {
           // Handle form submission logic here
           console.log(values);
-          toast.success("Blog post has been added", {
+
+          updateBlog(values.id, values.title, values.content, values.date);
+          toast.success("Blog post has been updated", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -102,7 +117,6 @@ export default function index() {
             progress: undefined,
             theme: "light",
           });
-          addblog(values);
         }}
       >
         {({ errors, touched }) => (
@@ -115,7 +129,7 @@ export default function index() {
                 type="text"
                 id="title"
                 name="title"
-                placeholder="Enter your title"
+                placeholder={`${currentBlog[0]?.title}`}
                 className={`focus:border-none border-[2px] ${
                   !errors.title
                     ? "focus:outline-[#4FFFB0] outline-black/25"

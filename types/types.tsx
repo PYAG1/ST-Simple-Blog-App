@@ -12,7 +12,20 @@ export interface blogdata {
   author:string
 }
 export interface BlogContextType {
+  updateState:boolean
+  setupdateState: React.Dispatch<React.SetStateAction<boolean>>;
   blogs: blogdata[];
   addblog: (blogs: blogdata) => void;
-  updateBlog?: (id:string, updatedTitle: string, updatedContent: string) => void;
+  updateBlog: (  
+    id: string,
+    updatedTitle: string,
+    updatedContent: string,
+    dateUpdated: string
+    ) => void;
+  deleteBlog:(id:string) =>void
+}
+
+export interface ReactQuillFieldProps {
+  label: string;
+  name: string;
 }

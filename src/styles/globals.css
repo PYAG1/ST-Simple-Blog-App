@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.bord{
+    border:solid 1px red
+}
+
+.post-content{
+max-width: 960px;
+}
