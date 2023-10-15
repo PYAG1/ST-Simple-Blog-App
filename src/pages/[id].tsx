@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { FaArrowLeft ,FaEdit} from "react-icons/fa";
+import { FaArrowLeft ,FaEdit, FaTrash} from "react-icons/fa";
 import { useBlogContext } from "../../utils/context";
 import { blogdata } from "../../types/types";
 import {toast} from "react-toastify"
@@ -40,11 +40,13 @@ export default function BlogDetails() {
 
         <div className=" flex  gap-2">
        <Link href={`/update_blog/${blogid}`}>
-       <FaEdit size={30}/>
+       <FaEdit size={20}/>
        
        </Link>
 
-          <button onClick={() => handleDelete()}>del</button>
+          <button onClick={() => handleDelete()}>
+          <p><FaTrash size={20}/></p>
+            </button>
         </div>
       </header>
 

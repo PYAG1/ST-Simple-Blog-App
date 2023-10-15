@@ -70,9 +70,7 @@ export default function index() {
     title: Yup.string()
       .required("Title is required")
       .min(1, "Title must not be an empty string"),
-    content: Yup.string()
-      .required("Content is required")
-      .min(1, "Content must not be an empty string"),
+ 
   });
 
 // @ts-ignore

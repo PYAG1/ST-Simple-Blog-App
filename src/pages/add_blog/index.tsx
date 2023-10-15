@@ -7,12 +7,13 @@ import dynamic from "next/dynamic";
 import { useField } from "formik";
 
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false, // Ensure it's not loaded on the server side
 });
 import "react-quill/dist/quill.snow.css";
 import { useBlogContext } from "../../../utils/context";
+import Router, { useRouter } from "next/router";
 
 interface ReactQuillFieldProps {
   label: string;
@@ -58,6 +59,7 @@ export default function index() {
   const month = String(newDate.getUTCMonth() + 1).padStart(2, "0");
   const year = newDate.getUTCFullYear();
   const formattedDate = `${day}/${month}/${year}`;
+  const router = useRouter();
 
   const validationSchema = Yup.object().shape({
     title: Yup.string()
@@ -68,9 +70,8 @@ export default function index() {
       .min(1, "Content must not be an empty string"),
   });
 
+  // @ts-ignore
   const { blogs, addblog } = useBlogContext();
-
-  console.log(blogs);
 
   return (
     <div>
@@ -91,7 +92,6 @@ export default function index() {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           // Handle form submission logic here
-          console.log(values);
           toast.success("Blog post has been added", {
             position: "top-right",
             autoClose: 2000,
@@ -103,6 +103,7 @@ export default function index() {
             theme: "light",
           });
           addblog(values);
+          router.push("/");
         }}
       >
         {({ errors, touched }) => (
@@ -133,7 +134,7 @@ export default function index() {
 
             <ReactQuillField name="content" label="Content" />
 
-            <button type="submit">Submit</button>
+            <button type="submit" className="w-max px-4 py-2 ">Submit</button>
           </Form>
         )}
       </Formik>

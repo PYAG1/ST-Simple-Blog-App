@@ -9,15 +9,7 @@ export const useBlogContext = () => {
 };
 
 export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
-  const [blogs, setBlogArray] = useState<blogdata[]>([
-    {
-id:"100099",
-title:"My first Blog",
-content:"<p>I am very excited doing this</p>",
-date:"19/02/2023",
-author:"Henry "
-    }
-  ]);
+  const [blogs, setBlogArray] = useState<blogdata[]>([]);
   const [updateState,setupdateState] = useState(false)
 
   const addblog = (blogs: blogdata) => {
