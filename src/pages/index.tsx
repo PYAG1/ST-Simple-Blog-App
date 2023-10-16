@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useBlogContext } from "../../utils/context";
 import { blogdata } from "../../types/types";
+import image from "../assets/34.jpg"
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +33,9 @@ export default function Home() {
           key={id}
           className=" w-full grid grid-cols-2 grid-rows-1 gap-3 lg:grid-cols-1 lg:grid-rows-2"
         >
-          <div className="w-full h-[150px] bg-black"></div>
+          <div className="w-full h-[250px] lg:h-[15em]">
+            <Image src={image} alt="image" className=" w-full h-full object-cover"/>
+          </div>
 
           <div className=" flex flex-col gap-2 pr-3 overflow-hidden ">
             <Link href={`/${id}`} className=" text-2xl font-semibold">

@@ -36,11 +36,11 @@ const ReactQuillField: React.FC<ReactQuillFieldProps> = ({
       ["clean"],
     ],
   };
-  
-// @ts-ignore
+
+  // @ts-ignore
 
   const { blogs } = useBlogContext();
-  const currentBlog = blogs.filter((item:blogdata) => {
+  const currentBlog = blogs.filter((item: blogdata) => {
     return item.id === getId();
   });
 
@@ -70,13 +70,12 @@ export default function index() {
     title: Yup.string()
       .required("Title is required")
       .min(1, "Title must not be an empty string"),
- 
   });
 
-// @ts-ignore
+  // @ts-ignore
 
   const { blogs, updateBlog } = useBlogContext();
-  const currentBlog = blogs.filter((item:blogdata) => {
+  const currentBlog = blogs.filter((item: blogdata) => {
     //function to get the current blog
     return item.id === getId();
   });
@@ -95,7 +94,7 @@ export default function index() {
         initialValues={{
           id: getId(),
           title: currentBlog[0]?.title,
-          content: "",
+          content: currentBlog[0]?.content,
           date: formattedDate,
           author: "you",
         }}
@@ -114,7 +113,9 @@ export default function index() {
             draggable: true,
             progress: undefined,
             theme: "light",
+            
           });
+          router.push("/")
         }}
       >
         {({ errors, touched }) => (
@@ -145,7 +146,9 @@ export default function index() {
 
             <ReactQuillField name="content" label="Content" />
 
-            <button type="submit">Submit</button>
+            <button type="submit" className="w-max px-4 py-2 newbord ">
+              Submit
+            </button>
           </Form>
         )}
       </Formik>

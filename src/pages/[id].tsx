@@ -5,6 +5,8 @@ import { FaArrowLeft ,FaEdit, FaTrash} from "react-icons/fa";
 import { useBlogContext } from "../../utils/context";
 import { blogdata } from "../../types/types";
 import {toast} from "react-toastify"
+import image from "../assets/34.jpg"
+import Image from "next/image";
 
 export default function BlogDetails() {
   const router = useRouter();
@@ -54,8 +56,10 @@ export default function BlogDetails() {
         {blogs.map((item: blogdata) => {
           if (item.id === blogid) {
             return (
-              <div className="w-full p-5 flex flex-col gap-3">
-                <div className=" w-full h-[50vh] bg-black"></div>
+              <div className="w-full p-5 flex flex-col gap-3" key={item.id}>
+                <div className=" w-full h-[50vh]">
+                <Image src={image} alt="image" className=" w-full h-full object-cover"/>
+                </div>
                 <p className=" text-4xl font-semibold my-3">{item.title}</p>
                 <div className=" text-sm">
                   <p>date published {item.date}</p>

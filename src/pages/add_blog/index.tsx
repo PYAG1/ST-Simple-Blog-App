@@ -134,7 +134,7 @@ export default function index() {
 
             <ReactQuillField name="content" label="Content" />
 
-            <button type="submit" className="w-max px-4 py-2 ">Submit</button>
+            <button type="submit" className="w-max px-4 py-2 newbord ">Submit</button>
           </Form>
         )}
       </Formik>
