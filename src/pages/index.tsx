@@ -58,6 +58,9 @@ export default function Home() {
   )
 }
       </main>
+      <div>
+        <p>By py Next Js + TypeScript</p>
+      </div>
     </div>
   );
 }

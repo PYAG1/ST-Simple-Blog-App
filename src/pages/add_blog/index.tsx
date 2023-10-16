@@ -36,7 +36,7 @@ const ReactQuillField: React.FC<ReactQuillFieldProps> = ({
     ],
   };
 
-  console.log(value);
+
 
   return (
     <div>
@@ -91,7 +91,6 @@ export default function index() {
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          // Handle form submission logic here
           toast.success("Blog post has been added", {
             position: "top-right",
             autoClose: 2000,

@@ -100,8 +100,7 @@ export default function index() {
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          // Handle form submission logic here
-          console.log(values);
+  
 
           updateBlog(values.id, values.title, values.content, values.date);
           toast.success("Blog post has been updated", {
