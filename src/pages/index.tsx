@@ -58,8 +58,8 @@ export default function Home() {
   )
 }
       </main>
-      <div>
-        <p>By py Next Js + TypeScript</p>
+      <div className="w-full text-center">
+        <p className="text-sm">By py Next Js + TypeScript</p>
       </div>
     </div>
   );
