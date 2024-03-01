@@ -5,7 +5,11 @@ import { BlogContextType, BlogProviderProps, blogdata } from "../types/types";
 const Blogcontext = createContext<BlogContextType | null>(null);
 
 export const useBlogContext = () => {
-  return useContext(Blogcontext);
+  const context= useContext(Blogcontext);
+  if(!context) {
+    throw new Error("Null Context")
+  }
+  return context
 };
 
 export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
@@ -18,7 +22,7 @@ export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
     });
   };
   const updateBlog = (
-    id: string,
+    id: any,
     updatedTitle: string,
     updatedContent: string,
     dateUpdated: string
@@ -37,7 +41,7 @@ export const BlogProvider: React.FC<BlogProviderProps> = ({ children }) => {
     setBlogArray(updatedBlogs);
   };
 
-  const deleteBlog = (id: string) => {
+  const deleteBlog = (id:any) => {
     const updatedblogs= blogs.filter((item)=>{
       return item.id !== id
     })

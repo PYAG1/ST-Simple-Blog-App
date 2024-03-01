@@ -10,8 +10,9 @@ import image from "../assets/34.jpg"
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  //@ts-ignore
+  
   const { blogs } = useBlogContext();
+  console.log(blogs)
   return (
     <div className=" w-full h-full ">
       <header className=" w-full p-4 flex justify-between">
@@ -33,7 +34,7 @@ export default function Home() {
           key={id}
           className=" w-full grid grid-cols-2 grid-rows-1 gap-3 lg:grid-cols-1 lg:grid-rows-2"
         >
-          <div className="w-full h-[250px] lg:h-[15em]">
+          <div className="w-full h-[250px] lg:h-[20em]">
             <Image src={image} alt="image" className=" w-full h-full object-cover"/>
           </div>
 

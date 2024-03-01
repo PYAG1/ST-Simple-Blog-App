@@ -1,6 +1,13 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope&family=Oswald&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    font-family: 'Manrope', sans-serif;
+}
 
 .bord{
     border:solid 1px red

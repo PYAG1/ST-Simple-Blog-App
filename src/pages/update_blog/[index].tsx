@@ -72,7 +72,7 @@ export default function index() {
       .min(1, "Title must not be an empty string"),
   });
 
-  // @ts-ignore
+  
 
   const { blogs, updateBlog } = useBlogContext();
   const currentBlog = blogs.filter((item: blogdata) => {

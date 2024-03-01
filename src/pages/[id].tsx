@@ -14,7 +14,6 @@ export default function BlogDetails() {
   const blogid = router?.query?.id;
 
 
-// @ts-ignore
 
   const { blogs, deleteBlog } = useBlogContext();
 

@@ -70,7 +70,7 @@ export default function index() {
       .min(1, "Content must not be an empty string"),
   });
 
-  // @ts-ignore
+  
   const { blogs, addblog } = useBlogContext();
 
   return (
